@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./pages/index.css" rel="stylesheet">
+
+  <!---------------------------- style.css -------------------------------->
+  <link href="style.css" rel="stylesheet">
+  <title>Mesto</title>
+</head>
+
+<body class="page">
+  <div class="root">
+    <!-- header -->
+    <header class="header root__header">
+      <img class="logo" src="./images/header_logo.svg" alt="Логотип">
+    </header>
+
+    <!-- main -->
+    <main class="content">
+      <!-- profile -->
+      <section class="profile root__profile">
+        <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
+        <div class="profile__info">
+          <p class="profile__name">Жак Ив Кусто</p>
+          <button class="profile__edit-button"></button>
+          <p class="profile__activity">Исследователь океана</p>
+        </div>
+        <button class="profile__add-button"></button>
+      </section>
+
+      <!-- elements -->
+      <section class="elements root__elements">
+        <ul class="elements__list">
+          <li class="elements__list-item">
+            <img class="elements__image" src="./images/karachaevsk.jpg" alt="Вид на горы города Карачаевск">
+            <div class="elements__group">
+              <p class="elements__name">Карачаевск</p>
+              <button class="elements__like"></button>
+            </div>
+          </li>
+          <li class="elements__list-item">
+            <img class="elements__image" src="./images/elbrus.jpg" alt="Вид на гору Эльбрус">
+            <div class="elements__group">
+              <p class="elements__name">Гора Эльбрус</p>
+              <button class="elements__like"></button>
+            </div>
+          </li>
+          <li class="elements__list-item">
+            <img class="elements__image" src="./images/dombay.jpg" alt="Вид на горы Домбая">
+            <div class="elements__group">
+              <p class="elements__name">Домбай</p>
+              <button class="elements__like"></button>
+            </div>
+          </li>
+          <li class="elements__list-item">
+            <img class="elements__image" src="./images/elbrus.jpg" alt="Вид на гору Эльбрус">
+            <div class="elements__group">
+              <p class="elements__name">Гора Эльбрус</p>
+              <button class="elements__like"></button>
+            </div>
+          </li>
+          <li class="elements__list-item">
+            <img class="elements__image" src="./images/dombay.jpg" alt="Вид на горы Домбая">
+            <div class="elements__group">
+              <p class="elements__name">Домбай</p>
+              <button class="elements__like"></button>
+            </div>
+          </li>
+          <li class="elements__list-item">
+            <img class="elements__image" src="./images/karachaevsk.jpg" alt="Вид на горы города Карачаевск">
+            <div class="elements__group">
+              <p class="elements__name">Карачаево-Ч...</p>
+              <button class="elements__like"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <!-- footer -->
+    <footer class="footer root__footer">
+      <p class="footer-text">&copy;&nbsp;2020 Mesto Russia</p>
+    </footer>
+  </div>
+</body>
+
+</html>
