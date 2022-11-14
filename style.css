@@ -106,12 +106,12 @@
   max-width: 880px;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
 }
 
 @media screen and (max-width: 1024px){
   .profile{
    flex-direction: column;
+   align-items: center;
   }
 }
 
@@ -122,6 +122,9 @@
 }
 
 .profile__info {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 336px;
   margin-left: 30px;
   color: #fff;
 }
@@ -129,27 +132,39 @@
 @media screen and (max-width: 1024px){
   .profile__info{
    margin: 26px 0 0;
+   justify-content: center;
+  }
+}
+
+@media screen and (max-width: 680px){
+  .profile__info{
+    max-width: 282px;
   }
 }
 
 .profile__name {
-  display: inline-block;
   max-width: 294px;
   margin: 0;
   font-weight: 500;
   font-size: 42px;
   line-height: 1.14;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 680px){
   .profile__name {
+    max-width: 189px;
     font-size: 27px;
     line-height: 1.22;
   }
 }
 
+
 .profile__edit-button {
-  margin-left: 13px;
+  margin-left: 18px;
+  margin-top: 15px;
   width: 24px;
   height: 24px;
   border: 1px solid #fff;
@@ -168,7 +183,8 @@
 
 @media screen and (max-width: 680px){
   .profile__edit-button {
-    margin-left: 5px;
+    margin-left: 10px;
+    margin-top: 8px;
     width: 18px;
     height: 18px;
     background-size: 8px 8px;
@@ -176,23 +192,26 @@
 }
 
 .profile__activity {
-  max-width: 294px;
+  max-width: 336px;
   margin: 16px 0 0;
   font-weight: 400;
   font-size: 18px;
   line-height: 1.22;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 1024px){
   .profile__activity{
    margin: 14px 0 0;
-   text-align: center;
   }
 }
 
 @media screen and (max-width: 680px){
   .profile__activity{
     font-size: 14px;
+    max-width: 282px;
   }
 }
 
@@ -273,11 +292,15 @@
 }
 
 .elements__name {
+  max-width: 190px;
   display: inline-block;
   margin: 0;
   font-weight: 900;
   font-size: 24px;
   line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .elements__like {
@@ -295,6 +318,18 @@
 .elements__like:hover {
   opacity: .5;
   cursor: pointer;
+}
+
+.elements__like_active {
+  width: 22px;
+  height: 19px;
+  border: none;
+  padding: 0;
+  background-color: #fff;
+  background-image: url('./images/like_active.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px 19px;
 }
 
 /***** footer *****/
