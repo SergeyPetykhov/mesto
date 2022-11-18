@@ -1,6 +1,6 @@
 .profile__activity {
-  max-width: 336px;
-  margin: 5px 0 0;
+  width: 100%;
+  margin: 16px 0 0;
   font-weight: 400;
   font-size: 18px;
   line-height: 1.22;
@@ -11,13 +11,14 @@
 
 @media screen and (max-width: 1024px) {
   .profile__activity {
-    margin: 14px 0 0;
+    margin: 8px 0 0;
+    text-align: center;
   }
 }
 
 @media screen and (max-width: 680px) {
   .profile__activity {
     font-size: 14px;
-    max-width: 282px;
+    line-height: 1.21;
   }
 }
