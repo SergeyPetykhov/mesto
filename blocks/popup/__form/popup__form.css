@@ -1,9 +1,9 @@
-.form__profile {
+.popup__form {
   margin-top: 54px;
 }
 
 @media screen and (max-width: 680px) {
-  .form__profile {
+  .popup__form {
     margin-top: 75px;
   }
 }
