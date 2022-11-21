@@ -7,7 +7,7 @@ const profileActivity = document.querySelector('.profile__activity');
 
 /* popup */
 const popupElement = document.querySelector('.popup');
-const formElement = popupElement.querySelector('.form__profile');
+const formElement = popupElement.querySelector('.popup__form');
 const closePopupButton = popupElement.querySelector('.popup__close-button');
 const popupElementName = popupElement.querySelector('.form__item_el_name');
 const popupElementActivity = popupElement.querySelector('.form__item_el_activity');
