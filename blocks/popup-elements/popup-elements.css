@@ -1,4 +1,4 @@
-.popup {
+.popup-elements {
   display: flex;
   position: fixed;
   justify-content: center;
@@ -12,4 +12,3 @@
   opacity: 0;
   transition: visibility 0.3s, opacity 0.3s linear;
 }
-
