@@ -45,7 +45,7 @@
 @import url('../blocks/footer/__text/footer__text.css');
 
 /***** popup *****/
-@import url('../blocks/popup/_is-open/popup_is-open.css'); /*//////////////////////////*/
+@import url('../blocks/open.css'); /***** test - function *****/
 
 /***** popup-profile *****/
 @import url('../blocks/popup-profile/popup-profile.css');
