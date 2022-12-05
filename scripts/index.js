@@ -1,187 +1,56 @@
-/***************** profile  *************************/
-/* variable */
-const editButton = document.querySelector('.profile__edit-button');
-const addButton = document.querySelector('.profile__add-button');
+/******************** variable *******************/
+/* profile  */
+const profileEditButton = document.querySelector('.profile__edit-button');
+const profileAddButton = document.querySelector('.profile__add-button');
 const profileName = document.querySelector('.profile__name');
 const profileActivity = document.querySelector('.profile__activity');
 
+/* popup-profile */
+const popupProfileElement = document.querySelector('.popup-profile');
+const popupProfileFormElement = popupProfileElement.querySelector('.popup-profile__form');
+const popupProfileCloseButton = popupProfileElement.querySelector('.popup-profile__close-button');
+const popupProfileElementName = popupProfileElement.querySelector('.form-profile__item_el_name');
+const popupProfileElementActivity = popupProfileElement.querySelector('.form-profile__item_el_activity');
 
-
-/***************** popup *****************************/
-/*variable */
-const popupElement = document.querySelector('.popup');
-const formElement = popupElement.querySelector('.popup__form');
-const closePopupButton = popupElement.querySelector('.popup__close-button');
-const popupElementName = popupElement.querySelector('.form__item_el_name');
-const popupElementActivity = popupElement.querySelector('.form__item_el_activity');
-
-/* function */
-const openPopup = function () {
-  popupElement.classList.add('popup_is-opened');
-  popupElementName.value = profileName.textContent;
-  popupElementActivity.value = profileActivity.textContent;
-}
-
-const closePopup = function () {
-  popupElement.classList.remove('popup_is-opened');
-}
-
-const formSubmitHandler = function (evt) {
-  evt.preventDefault();
-  profileName.textContent = popupElementName.value;
-  profileActivity.textContent = popupElementActivity.value;
-  closePopup ();
-}
-
-/* event */
-editButton.addEventListener('click', openPopup);
-closePopupButton.addEventListener('click', closePopup);
-formElement.addEventListener('submit', formSubmitHandler);
-
-
-
-/******************* popup-image *****************************/
-/*variable */
+/* popup-image */
 const popupImageElement = document.querySelector('.popup-image');
-const closePopupImageButton = popupImageElement.querySelector('.popup-image__close-button');
+const popupImageCloseButton = popupImageElement.querySelector('.popup-image__close-button');
 const popupImageElementImg = popupImageElement.querySelector('.popup-image__img');
 const popupImageElementCaption = popupImageElement.querySelector('.popup-image__figcaption');
 
-/* function */
-const closePopupImage = function () {
-  popupImageElement.classList.remove('popup-image_is-opened');
-}
-
-/* event */
-closePopupImageButton.addEventListener('click', closePopupImage);
-
-
-
-/******************* popup-elements *****************************/
-/*variable */
+/* popup-elements */
 const popupElementsElement = document.querySelector('.popup-elements');
-const formElementsElement  = popupElementsElement.querySelector('.popup-elements__form');
-const closePopupElementsButton = popupElementsElement.querySelector('.popup-elements__close-button');
+const popupElementsFormElement = popupElementsElement.querySelector('.popup-elements__form');
+const popupElementsCloseButton = popupElementsElement.querySelector('.popup-elements__close-button');
 const popupElementsElementName = popupElementsElement.querySelector('.form-elements__item_el_name');
 const popupElementsElementLink = popupElementsElement.querySelector('.form-elements__item_el_link');
 
-/* function */
-const openPopupElements = function () {
-  popupElementsElement.classList.add('popup-elements_is-opened');
-
-  popupElementsElementName.value = '';
-  popupElementsElementLink.value = '';
-}
-
-const closePopupElements = function () {
-  popupElementsElement.classList.remove('popup-elements_is-opened');
-}
-
-function createFormElementPrepend() {
-  const elementsListItem = elementsTemplate.cloneNode(true);
-
-  const elementsListItemName = elementsListItem.querySelector('.elements__name');
-  const elementsListItemImage = elementsListItem.querySelector('.elements__image');
-
-  const elementsDeleteButton = elementsListItem.querySelector('.elements__delete-button');
-  const elementsLikeButton = elementsListItem.querySelector('.elements__like-button');
-
-  const elementsOpenBigImage = elementsListItem.querySelector('.elements__image');
-
-  elementsListItemName.textContent = popupElementsElementName.value;
-  elementsListItemImage.src = popupElementsElementLink.value;
-  elementsListItemImage.alt = popupElementsElementName.value;
-
-  const handleElementsDeleteButtonClick = function (evt) {
-    evt.target.closest('.elements__list-item').remove();
-  };
-
-  const handleElementslikeButtonClick = function (evt) {
-    evt.target.classList.toggle('elements__like-button_active');
-  };
-
-  const handleElementsOpenBigImageClick = function (evt) {
-    popupImageElement.classList.add('popup-image_is-opened');
-
-    popupImageElementImg.src = popupElementsElementLink.value;
-    popupImageElementImg.alt = popupElementsElementName.value;
-    popupImageElementCaption.textContent = popupElementsElementName.value;
-  };
-
-  elementsDeleteButton.addEventListener('click', handleElementsDeleteButtonClick);
-  elementsLikeButton.addEventListener('click', handleElementslikeButtonClick);
-  elementsOpenBigImage.addEventListener('click', handleElementsOpenBigImageClick);
-
-  elementsList.prepend(elementsListItem);
-}
-
-const formElementsSubmitHandler = function (evt) {
-  evt.preventDefault();
-  createFormElementPrepend();
-  closePopupElements();
-}
-
-/* event */
-addButton.addEventListener('click', openPopupElements);
-closePopupElementsButton.addEventListener('click', closePopupElements);
-formElementsElement.addEventListener('submit', formElementsSubmitHandler);
-
-
-
-/********************** elements *******************************/
-/*variable */
-const initialElements = [
-  {
-    name: 'Архыз',
-    link: './images/arkhyz.jpg',
-    alt: 'Вид на долину Архыз'
-  },
-  {
-    name: 'Челябинская область',
-    link: './images/chelyabinsk-oblast.jpg',
-    alt: 'Зимний вид на лесное озеро'
-  },
-  {
-    name: 'Иваново',
-    link: './images/ivanovo.jpg',
-    alt: 'Вид на жилой массив в городе'
-  },
-  {
-    name: 'Камчатка',
-    link: './images/kamchatka.jpg',
-    alt: 'Вид на гору с плато'
-  },
-  {
-    name: 'Холмогорский район',
-    link: './images/kholmogorsky-rayon.jpg',
-    alt: 'Железная дорога посреди леса'
-  },
-  {
-    name: 'Байкал',
-    link: './images/baikal.jpg',
-    alt: 'Вид на берег зимнего озера'
-  }
-];
+/* elements */
 const elementsList = document.querySelector('.elements__list');
 
 /* template */
 const elementsTemplate = document.querySelector('#elements-template').content.querySelector('.elements__list-item');
 
-/* function */
-function createElement(item) {
-  const elementsListItem = elementsTemplate.cloneNode(true);
 
+
+/******************** function ***********************/
+/* popup open/close */
+
+
+
+
+/* create-new-element */
+const createNewElement = function () {
+  const elementsListItem = elementsTemplate.cloneNode(true);
   const elementsListItemName = elementsListItem.querySelector('.elements__name');
   const elementsListItemImage = elementsListItem.querySelector('.elements__image');
-
   const elementsDeleteButton = elementsListItem.querySelector('.elements__delete-button');
   const elementsLikeButton = elementsListItem.querySelector('.elements__like-button');
-
   const elementsOpenBigImage = elementsListItem.querySelector('.elements__image');
 
-  elementsListItemName.textContent = item.name;
-  elementsListItemImage.src = item.link;
-  elementsListItemImage.alt = item.alt;
+  elementsListItemName.textContent = '';
+  elementsListItemImage.src = '';
+  elementsListItemImage.alt = '';
 
   const handleElementsDeleteButtonClick = function (evt) {
     evt.target.closest('.elements__list-item').remove();
@@ -194,9 +63,14 @@ function createElement(item) {
   const handleElementsOpenBigImageClick = function (evt) {
     popupImageElement.classList.add('popup-image_is-opened');
 
-    popupImageElementImg.src = item.link;
-    popupImageElementImg.alt = item.alt;
-    popupImageElementCaption.textContent = item.name;
+    popupImageElementImg.src = elementsListItemImage.src;
+    if (elementsListItemImage.alt === '') {
+      popupImageElementImg.alt = elementsListItemName.textContent;
+    }
+    else {
+      popupImageElementImg.alt = elementsListItemImage.alt;
+    }
+    popupImageElementCaption.textContent = elementsListItemName.textContent;
   };
 
   elementsDeleteButton.addEventListener('click', handleElementsDeleteButtonClick);
@@ -206,9 +80,89 @@ function createElement(item) {
   return elementsListItem;
 }
 
-initialElements.forEach(function(item) {
-  const element = createElement(item);
+/* create-initial-element */
+const createInitialElement = function (item) {
+  const InitialElement = createNewElement();
+  const elementsListItemName = InitialElement.querySelector('.elements__name');
+  const elementsListItemImage = InitialElement.querySelector('.elements__image');
+
+  elementsListItemName.textContent = item.name;;
+  elementsListItemImage.src = item.link;
+  elementsListItemImage.alt = item.alt;
+
+  return InitialElement;
+}
+
+initialElements.forEach(function (item) {
+  const element = createInitialElement(item);
   elementsList.append(element);
 });
 
+
+/* popup-elements */
+const openPopupElements = function () {
+  popupElementsElement.classList.add('popup-elements_is-opened');
+}
+
+const closePopupElements = function () {
+  popupElementsElement.classList.remove('popup-elements_is-opened');
+}
+
+const createAddElement = function () {
+  const AddElement = createNewElement();
+  const elementsListItemName = AddElement.querySelector('.elements__name');
+  const elementsListItemImage = AddElement.querySelector('.elements__image');
+
+  elementsListItemName.textContent = popupElementsElementName.value;
+  elementsListItemImage.src = popupElementsElementLink.value;
+  elementsListItemImage.alt = popupElementsElementName.value;
+
+  elementsList.prepend(AddElement);
+}
+
+const formElementsSubmitHandler = function (evt) {
+  evt.preventDefault();
+  createAddElement();
+  evt.target.reset();
+  closePopupElements();
+}
+
+/* popup-profile */
+const openPopupProfile = function () {
+  popupProfileElement.classList.add('popup-profile_is-opened');
+  popupProfileElementName.value = profileName.textContent;
+  popupProfileElementActivity.value = profileActivity.textContent;
+}
+
+const closePopupProfile = function () {
+  popupProfileElement.classList.remove('popup-profile_is-opened');
+}
+
+const formProfileSubmitHandler = function (evt) {
+  evt.preventDefault();
+  profileName.textContent = popupProfileElementName.value;
+  profileActivity.textContent = popupProfileElementActivity.value;
+  closePopupProfile();
+}
+
+/* popup-image */
+const closePopupImage = function () {
+  popupImageElement.classList.remove('popup-image_is-opened');
+}
+
+
+
+/********************  event ********************/
+/* popup-profile */
+profileEditButton.addEventListener('click', openPopupProfile);
+popupProfileCloseButton.addEventListener('click', closePopupProfile);
+popupProfileFormElement.addEventListener('submit', formProfileSubmitHandler);
+
+/* popup-image */
+popupImageCloseButton.addEventListener('click', closePopupImage);
+
+/* popup-elements */
+profileAddButton.addEventListener('click', openPopupElements);
+popupElementsCloseButton.addEventListener('click', closePopupElements);
+popupElementsFormElement.addEventListener('submit', formElementsSubmitHandler);
 

@@ -1,4 +1,4 @@
-.popup__save-button {
+.popup-profile__save-button {
   padding: 0;
   border: 0;
   width: 100%;
@@ -14,7 +14,7 @@
 }
 
 @media screen and (max-width: 680px) {
-  .popup__save-button {
+  .popup-profile__save-button {
     margin-top: 45px;
     margin-bottom: 25px;
     height: 46px;
@@ -23,7 +23,7 @@
   }
 }
 
-.popup__save-button:hover {
+.popup-profile__save-button:hover {
   opacity: 0.8;
   cursor: pointer;
 }
