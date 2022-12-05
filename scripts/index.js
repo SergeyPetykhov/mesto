@@ -38,6 +38,12 @@ const elementsTemplate = document.querySelector('#elements-template').content.qu
 /****************** test-function **************/
 
 
+const openPopup = function (popup) {
+  popup.classList.add('open');
+  //popup.classList.add('popup-elements_is-opened');
+ }
+
+ openPopup(popupElementsElement);
 
 
 
@@ -171,9 +177,3 @@ popupElementsFormElement.addEventListener('submit', formElementsSubmitHandler);
 
 
 
-const openPopup = function (popup) {
-  popup.classList.add('open');
-  //popup.classList.add('popup-elements_is-opened');
- }
-
- openPopup(popupElementsElement);
