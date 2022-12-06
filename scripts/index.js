@@ -34,19 +34,14 @@ const elementsTemplate = document.querySelector('#elements-template').content.qu
 
 
 /******************** function ***********************/
-
-/****************** test-function **************/
-
-
+/* open/close popups */
 const openPopup = function (popup) {
-  popup.classList.add('open');
-  //popup.classList.add('popup-elements_is-opened');
+    popup.classList.add('popup_is-opened');
  }
 
- openPopup(popupElementsElement);
-
-
-
+ const closePopup = function (popup) {
+  popup.classList.remove('popup_is-opened');
+}
 
 /* create-new-element */
 const createNewElement = function () {
@@ -69,9 +64,8 @@ const createNewElement = function () {
     evt.target.classList.toggle('elements__like-button_active');
   };
 
-  const handleElementsOpenBigImageClick = function (evt) {
-    popupImageElement.classList.add('popup-image_is-opened');
-
+  const handleElementsOpenBigImageClick = function () {
+    popupImageElementCaption.textContent = elementsListItemName.textContent;
     popupImageElementImg.src = elementsListItemImage.src;
     if (elementsListItemImage.alt === '') {
       popupImageElementImg.alt = elementsListItemName.textContent;
@@ -79,7 +73,7 @@ const createNewElement = function () {
     else {
       popupImageElementImg.alt = elementsListItemImage.alt;
     }
-    popupImageElementCaption.textContent = elementsListItemName.textContent;
+    openPopup(popupImageElement);
   };
 
   elementsDeleteButton.addEventListener('click', handleElementsDeleteButtonClick);
@@ -107,14 +101,13 @@ initialElements.forEach(function (item) {
   elementsList.append(element);
 });
 
-
 /* popup-elements */
 const openPopupElements = function () {
-  popupElementsElement.classList.add('popup-elements_is-opened');
+  openPopup(popupElementsElement);
 }
 
 const closePopupElements = function () {
-  popupElementsElement.classList.remove('popup-elements_is-opened');
+  closePopup(popupElementsElement);
 }
 
 const createAddElement = function () {
@@ -138,13 +131,13 @@ const formElementsSubmitHandler = function (evt) {
 
 /* popup-profile */
 const openPopupProfile = function () {
-  popupProfileElement.classList.add('popup-profile_is-opened');
   popupProfileElementName.value = profileName.textContent;
   popupProfileElementActivity.value = profileActivity.textContent;
+  openPopup(popupProfileElement);
 }
 
 const closePopupProfile = function () {
-  popupProfileElement.classList.remove('popup-profile_is-opened');
+  closePopup(popupProfileElement);
 }
 
 const formProfileSubmitHandler = function (evt) {
@@ -156,7 +149,7 @@ const formProfileSubmitHandler = function (evt) {
 
 /* popup-image */
 const closePopupImage = function () {
-  popupImageElement.classList.remove('popup-image_is-opened');
+  closePopup(popupImageElement);
 }
 
 
