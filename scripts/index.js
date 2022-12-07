@@ -44,7 +44,7 @@ const openPopup = function (popup) {
 }
 
 /* create-new-element */
-const createNewElement = function () {
+const createNewElement = function (name, src, alt) {
   const elementsListItem = elementsTemplate.cloneNode(true);
   const elementsListItemName = elementsListItem.querySelector('.elements__name');
   const elementsListItemImage = elementsListItem.querySelector('.elements__image');
@@ -52,9 +52,9 @@ const createNewElement = function () {
   const elementsLikeButton = elementsListItem.querySelector('.elements__like-button');
   const elementsOpenBigImage = elementsListItem.querySelector('.elements__image');
 
-  elementsListItemName.textContent = '';
-  elementsListItemImage.src = '';
-  elementsListItemImage.alt = '';
+  elementsListItemName.textContent = name;
+  elementsListItemImage.src = src;
+  elementsListItemImage.alt = alt;
 
   const handleElementsDeleteButtonClick = function (evt) {
     evt.target.closest('.elements__list-item').remove();
@@ -65,13 +65,13 @@ const createNewElement = function () {
   };
 
   const handleElementsOpenBigImageClick = function () {
-    popupImageElementCaption.textContent = elementsListItemName.textContent;
-    popupImageElementImg.src = elementsListItemImage.src;
+    popupImageElementCaption.textContent = name;
+    popupImageElementImg.src = src;
     if (elementsListItemImage.alt === '') {
-      popupImageElementImg.alt = elementsListItemName.textContent;
+      popupImageElementImg.alt = name;
     }
     else {
-      popupImageElementImg.alt = elementsListItemImage.alt;
+      popupImageElementImg.alt = alt;
     }
     openPopup(popupImageElement);
   };
@@ -85,13 +85,10 @@ const createNewElement = function () {
 
 /* create-initial-element */
 const createInitialElement = function (item) {
-  const InitialElement = createNewElement();
-  const elementsListItemName = InitialElement.querySelector('.elements__name');
-  const elementsListItemImage = InitialElement.querySelector('.elements__image');
-
-  elementsListItemName.textContent = item.name;;
-  elementsListItemImage.src = item.link;
-  elementsListItemImage.alt = item.alt;
+  const name = item.name;;
+  const src = item.link;
+  const alt = item.alt;
+  const InitialElement = createNewElement(name, src, alt);
 
   return InitialElement;
 }
@@ -111,13 +108,10 @@ const closePopupElements = function () {
 }
 
 const createAddElement = function () {
-  const AddElement = createNewElement();
-  const elementsListItemName = AddElement.querySelector('.elements__name');
-  const elementsListItemImage = AddElement.querySelector('.elements__image');
-
-  elementsListItemName.textContent = popupElementsElementName.value;
-  elementsListItemImage.src = popupElementsElementLink.value;
-  elementsListItemImage.alt = popupElementsElementName.value;
+  const name = popupElementsElementName.value;
+  const src = popupElementsElementLink.value;
+  const alt = popupElementsElementName.value;
+  const AddElement = createNewElement(name, src, alt);
 
   elementsList.prepend(AddElement);
 }
