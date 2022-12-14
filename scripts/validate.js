@@ -1,6 +1,23 @@
 /* validation form and change avalible button */
 
-const checkInputValidity = function (input, config){
+const clearPopupForm = function (popup, config) {
+  const form = popup.querySelector(config.formSelector);
+  const inputs = popup.querySelectorAll(config.inputSelector);
+  const errors = popup.querySelectorAll(config.errorSelector);
+
+  form.reset();
+
+  inputs.forEach(function (input) {
+    input.classList.remove(config.inputErrorClass);
+  });
+
+  errors.forEach(function (error) {
+    error.textContent = '';
+    error.classList.remove(config.errorClass);
+  });
+}
+
+const checkInputValidity = function (input, config) {
   const error = document.querySelector(`#${input.id}-error`);
 
   if (input.validity.valid) {
@@ -15,26 +32,33 @@ const checkInputValidity = function (input, config){
   }
 }
 
-const changeButtonAvalible = function (inputs, button, config){
+const enableSubmitButton = function (button, config) {
+  button.classList.remove(config.inactiveButtonClass);
+  button.classList.add(config.activeButtonClass);
+  button.disabled = false;
+}
+
+const disableSubmitButton = function (button, config) {
+  button.classList.remove(config.activeButtonClass);
+  button.classList.add(config.inactiveButtonClass);
+  button.disabled = true;
+}
+
+const changeButtonAvalible = function (inputs, button, config) {
   const isFormValid = inputs.every(function (input) {
     return input.validity.valid;
   });
 
   if (isFormValid) {
-    button.classList.remove(config.inactiveButtonClass);
-    button.classList.add(config.activeButtonClass);
-    button.disabled = false;
+    enableSubmitButton(button, config);
   }
   else {
-    button.classList.remove(config.activeButtonClass);
-    button.classList.add(config.inactiveButtonClass);
-    button.disabled = true;
+    disableSubmitButton(button, config);
   }
 }
 
-const enableValidation = function(config){
+const enableValidation = function (config) {
   const forms = [...document.querySelectorAll(config.formSelector)];
-
 
   forms.forEach(function (form) {
     const inputs = [...form.querySelectorAll(config.inputSelector)];
