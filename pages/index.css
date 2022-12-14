@@ -63,6 +63,7 @@
 @import url('../blocks/popup-elements/__title/popup-elements__title.css');
 @import url('../blocks/popup-elements/__form/popup-elements__form.css');
 @import url('../blocks/popup-elements/__save-button/popup-elements__save-button.css');
+@import url('../blocks/popup-elements/__save-button/_disabled/popup-elements__save-button_disabled.css');
 
 /***** form-elements *****/
 @import url('../blocks/form-elements/__input-container/form-elements__input-container.css');
@@ -76,5 +77,15 @@
 @import url('../blocks/popup-image/__img/popup-image__img.css');
 @import url('../blocks/popup-image/__figcaption/popup-image__figcaption.css');
 
+/***** error *****/
+@import url('../blocks/error/error.css');
+
 /***** popup *****/
 @import url('../blocks/popup/_is-opened.css');
+@import url('../blocks/popup/__button-save/popup__button-save.css');
+@import url('../blocks/popup/__button-save/_avalible/popup_button-save_avalible.css');
+@import url('../blocks/popup/__button-save/_disabled/popup__button-save_disabled.css');
+@import url('../blocks/popup/__input/_type/popup__input_type_error.css');
+@import url('../blocks/popup/__error/_visible/popup__error_visible.css');
+
+
