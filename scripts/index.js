@@ -1,5 +1,5 @@
-import { Card } from './card.js';
-import { FormValidator } from './formValidator.js';
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
 
 
 
@@ -60,9 +60,8 @@ const closePopup = function (popup) {
 
 /* close popup keydown keyClosePopup */
 const closePopupByKeydownKeyClosePopup = function (evt) {
-  const popupIsOpen = document.querySelector('.popup_is-opened');
-
   if (evt.key === keyClosePopup) {
+    const popupIsOpen = document.querySelector('.popup_is-opened');
     closePopup(popupIsOpen);
   }
 }
@@ -85,22 +84,9 @@ const clearPopupForm = function (popup, config) {
   });
 }
 
-/* popups change availible button */
-const enableSubmitButton = function (button, config) {
-  button.classList.remove(config.inactiveButtonClass);
-  button.classList.add(config.activeButtonClass);
-  button.disabled = false;
-}
-
-const disableSubmitButton = function (button, config) {
-  button.classList.remove(config.activeButtonClass);
-  button.classList.add(config.inactiveButtonClass);
-  button.disabled = true;
-}
-
 /* popup-elements */
 const openPopupElements = function () {
-  disableSubmitButton(popupElementsElementSaveButton, config);
+  popupElementsFormValidator.changeButtonAvalible();
   openPopup(popupElementsElement);
 }
 
@@ -118,9 +104,8 @@ const closePopupElementsByClickOnOverlay = function (evt) {
 const formElementsSubmitHandler = function (evt) {
   evt.preventDefault();
 
-  const card = new Card(popupElementsElementName.value, popupElementsElementLink.value, popupElementsElementName.value, '#elements-template');
-  const cardElement = card.createCard();
-  elementsList.prepend(cardElement);
+  const newCard = createNewCard(popupElementsElementName.value, popupElementsElementLink.value, popupElementsElementName.value, '#elements-template');
+  elementsList.prepend(newCard);
 
   closePopupElements();
 }
@@ -131,8 +116,9 @@ const openPopupProfile = function () {
   popupProfileElementActivity.value = profileActivity.textContent;
   popupProfileElementSaveButton.disabled = true;
 
+
   if (popupProfileElementName.value && popupProfileElementActivity.value) {
-    enableSubmitButton(popupProfileElementSaveButton, config)
+    popupProfileFormValidator.changeButtonAvalible();
   }
 
   openPopup(popupProfileElement);
@@ -168,21 +154,27 @@ const closePopupImageByClickOnOverlay = function (evt) {
 }
 
 
+/* create new card */
+const createNewCard = function (name, src, alt, templateSelector) {
+  const card = new Card(name, src, alt, templateSelector);
+  const cardElement = card.createCard();
+
+  return cardElement;
+}
 
 /* create initial elements */
 initialElements.forEach(function (item) {
-  const card = new Card(item.name, item.link, item.alt, '#elements-template');
-  const cardElement = card.createCard();
-  elementsList.append(cardElement);
+  const newCard = createNewCard(item.name, item.link, item.alt, '#elements-template');
+  elementsList.append(newCard);
 });
 
 /* create formValidator */
 const popupProfileFormValidator = new FormValidator(config, '.popup-profile__form');
 popupProfileFormValidator.enableValidation();
 
+
 const popupElementsFormValidator = new FormValidator(config, '.popup-elements__form');
 popupElementsFormValidator.enableValidation();
-
 
 
 /********************  event ********************/

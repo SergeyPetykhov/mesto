@@ -3,11 +3,11 @@ import { popupImageElement, popupImageElementImg, popupImageElementCaption, open
 export class Card {
 
   static selectors = {
+    elementsList: '.elements__list-item',
     elementsName: '.elements__name',
     elementsImage: '.elements__image',
     elementsDeleteButton: '.elements__delete-button',
     elementsLikeButton: '.elements__like-button',
-    elementsOpenBigImage: '.elements__image'
   }
 
   constructor(name, src, alt, templateSelector) {
@@ -21,22 +21,22 @@ export class Card {
     const cardElement = document
       .querySelector(this._templateSelector)
       .content
-      .children[0]
+      .querySelector(Card.selectors.elementsList)
       .cloneNode(true);
 
     return cardElement;
   }
 
   _setEventListeners() {
-    this._element.querySelector(Card.selectors.elementsDeleteButton).addEventListener('click', () => {
+    this._deleteButton.addEventListener('click', () => {
       this._handleDeleteButtonClick();
     });
 
-    this._element.querySelector(Card.selectors.elementsLikeButton).addEventListener('click', () => {
+    this._likeButton.addEventListener('click', () => {
       this._handleLikeButtonClick();
     });
 
-    this._element.querySelector(Card.selectors.elementsOpenBigImage).addEventListener('click', () => {
+    this._image.addEventListener('click', () => {
       this._handleOpenBigImageClick();
     });
   }
@@ -44,10 +44,11 @@ export class Card {
 
   _handleDeleteButtonClick() {
     this._element.remove();
+    this._element = null;
   }
 
   _handleLikeButtonClick() {
-    this._element.querySelector(Card.selectors.elementsLikeButton).classList.toggle('elements__like-button_active');
+    this._likeButton.classList.toggle('elements__like-button_active');
   }
 
   _handleOpenBigImageClick() {
@@ -60,12 +61,19 @@ export class Card {
 
   createCard() {
     this._element = this._getTemplate();
+
+    this._likeButton = this._element.querySelector(Card.selectors.elementsLikeButton);
+    this._deleteButton = this._element.querySelector(Card.selectors.elementsDeleteButton);
+    this._image = this._element.querySelector(Card.selectors.elementsImage);
+
+    this._elementsName = this._element.querySelector(Card.selectors.elementsName);
+    this._elementsImage = this._element.querySelector(Card.selectors.elementsImage);
+
+    this._elementsName.textContent = this._name;
+    this._elementsImage.src = this._src;
+    this._elementsImage.alt = this._alt;
+
     this._setEventListeners();
-
-    this._element.querySelector(Card.selectors.elementsName).textContent = this._name;
-    this._element.querySelector(Card.selectors.elementsImage).src = this._src;
-    this._element.querySelector(Card.selectors.elementsImage).alt = this._alt;
-
     return this._element;
   }
 }
