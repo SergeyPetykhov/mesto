@@ -4,6 +4,7 @@ export class FormValidator {
     this._validationElement = validationElement;
   }
 
+
   _setEventListeners() {
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
@@ -18,6 +19,7 @@ export class FormValidator {
       });
     });
   }
+
 
   _checkInputValidity(input) {
     this._error = this._form.querySelector(`#${input.id}-error`);
@@ -34,6 +36,7 @@ export class FormValidator {
     }
   }
 
+
   changeButtonAvalible() {
     this._isFormValid = this._inputs.every(function (input) {
       return input.validity.valid;
@@ -47,11 +50,13 @@ export class FormValidator {
     }
   }
 
+
   _enableSubmitButton() {
     this._button.classList.remove(this._config.inactiveButtonClass);
     this._button.classList.add(this._config.activeButtonClass);
     this._button.disabled = false;
   }
+
 
   _disableSubmitButton() {
     this._button.classList.remove(this._config.activeButtonClass);
@@ -62,8 +67,8 @@ export class FormValidator {
 
   enableValidation() {
     this._form = document.querySelector(this._validationElement);
-    this._inputs = [...this._form.querySelectorAll(config.inputSelector)];
-    this._button = this._form.querySelector(config.submitButtonSelector);
+    this._inputs = [...this._form.querySelectorAll(this._config.inputSelector)];
+    this._button = this._form.querySelector(this._config.submitButtonSelector);
 
     this._setEventListeners();
   }

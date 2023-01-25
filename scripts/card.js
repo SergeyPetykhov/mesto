@@ -1,5 +1,3 @@
-import { popupImageElement, popupImageElementImg, popupImageElementCaption, openPopup } from './index.js';
-
 export class Card {
 
   static selectors = {
@@ -10,14 +8,16 @@ export class Card {
     elementsLikeButton: '.elements__like-button',
   }
 
-  constructor(name, src, alt, templateSelector) {
+  constructor({handleCardClick}, name, src, alt, templateSelector) {
+    this._handleCardClick = handleCardClick;
     this._name = name;
     this._src = src;
     this._alt = alt;
     this._templateSelector = templateSelector;
   }
 
-  _getTemplate() {
+
+   _getTemplate() {
     const cardElement = document
       .querySelector(this._templateSelector)
       .content
@@ -26,6 +26,7 @@ export class Card {
 
     return cardElement;
   }
+
 
   _setEventListeners() {
     this._deleteButton.addEventListener('click', () => {
@@ -37,7 +38,7 @@ export class Card {
     });
 
     this._image.addEventListener('click', () => {
-      this._handleOpenBigImageClick();
+      this._handleCardClick();
     });
   }
 
@@ -49,13 +50,6 @@ export class Card {
 
   _handleLikeButtonClick() {
     this._likeButton.classList.toggle('elements__like-button_active');
-  }
-
-  _handleOpenBigImageClick() {
-    popupImageElementCaption.textContent = this._name;
-    popupImageElementImg.src = this._src;
-    popupImageElementImg.alt = this._alt;
-    openPopup(popupImageElement);
   }
 
 

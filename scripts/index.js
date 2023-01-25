@@ -1,7 +1,15 @@
+import { UserInfo } from './UserInfo.js';
+import { PopupWithImage } from './PopupWithImage.js';
+import { PopupWithForm } from './PopupWithForm.js';
+import { Section } from './Section.js';
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 
+import { config } from './config.js';
+import { initialElements } from './cards.js';
 
+
+console.log(config);
 
 /******************** variable *******************/
 /* profile  */
@@ -19,10 +27,10 @@ const popupProfileElementActivity = popupProfileElement.querySelector('.form-pro
 const popupProfileElementSaveButton = popupProfileElement.querySelector('.popup-profile__save-button');
 
 /* popup-image */
-export const popupImageElement = document.querySelector('.popup-image');
-export const popupImageCloseButton = popupImageElement.querySelector('.popup-image__close-button');
-export const popupImageElementImg = popupImageElement.querySelector('.popup-image__img');
-export const popupImageElementCaption = popupImageElement.querySelector('.popup-image__figcaption');
+const popupImageElement = document.querySelector('.popup-image');
+const popupImageCloseButton = popupImageElement.querySelector('.popup-image__close-button');
+const popupImageElementImg = popupImageElement.querySelector('.popup-image__img');
+const popupImageElementCaption = popupImageElement.querySelector('.popup-image__figcaption');
 
 /* popup-elements */
 const popupElementsElement = document.querySelector('.popup-elements');
@@ -41,158 +49,105 @@ const elementsTemplate = document.querySelector('#elements-template').content.qu
 /* popupsAll */
 const popupsAll = document.querySelectorAll('.popup');
 
-/* key close for Popup */
-const keyClosePopup = 'Escape';
+/* profileData */
+const profileData = new UserInfo({ name: '.profile__name', about: '.profile__activity' });
+
+/* popupImage */
+const popupImage = new PopupWithImage('.popup-image');
+popupImage.setEventListeners();
+
+/* popupProfile */
+const popupProfile = new PopupWithForm({
+  handleSubmitForm: (evt) => {
+    evt.preventDefault();
+    const newUserData = { newName: popupProfileElementName.value, newAbout: popupProfileElementActivity.value };
+    profileData.setUserInfo(newUserData);
+    popupProfile.close();
+  }
+}
+  , '.popup-profile'
+);
+popupProfile.setEventListeners();
+
+/* popupElements */
+const popupElements = new PopupWithForm({
+  handleSubmitForm: (evt) => {
+    evt.preventDefault();
+    const newCard = createNewCard(popupElementsElementName.value, popupElementsElementLink.value, popupElementsElementName.value, '#elements-template');
+    elementsList.prepend(newCard);
+    popupElements.close();
+  }
+}
+  , '.popup-elements'
+);
+popupElements.setEventListeners();
+
+/* formValidator popupProfile */
+const popupProfileFormValidator = new FormValidator(config, '.popup-profile__form');
+popupProfileFormValidator.enableValidation();
+
+/* formValidator popupElements */
+const popupElementsFormValidator = new FormValidator(config, '.popup-elements__form');
+popupElementsFormValidator.enableValidation();
 
 
 
 /******************** function ***********************/
-/* open/close popups */
-export const openPopup = function (popup) {
-  popup.classList.add('popup_is-opened');
-  document.addEventListener('keydown', closePopupByKeydownKeyClosePopup);
-}
-
-const closePopup = function (popup) {
-  popup.classList.remove('popup_is-opened');
-  document.removeEventListener('keydown', closePopupByKeydownKeyClosePopup);
-}
-
-/* close popup keydown keyClosePopup */
-const closePopupByKeydownKeyClosePopup = function (evt) {
-  if (evt.key === keyClosePopup) {
-    const popupIsOpen = document.querySelector('.popup_is-opened');
-    closePopup(popupIsOpen);
-  }
-}
-
-/* clear popups form */
-const clearPopupForm = function (popup, config) {
-  const form = popup.querySelector(config.formSelector);
-  const inputs = popup.querySelectorAll(config.inputSelector);
-  const errors = popup.querySelectorAll(config.errorSelector);
-
-  form.reset();
-
-  inputs.forEach(function (input) {
-    input.classList.remove(config.inputErrorClass);
-  });
-
-  errors.forEach(function (error) {
-    error.textContent = '';
-    error.classList.remove(config.errorClass);
-  });
-}
-
-/* popup-elements */
+/* open popup-elements */
 const openPopupElements = function () {
   popupElementsFormValidator.changeButtonAvalible();
-  openPopup(popupElementsElement);
+  popupElements.open();
 }
 
-const closePopupElements = function () {
-  closePopup(popupElementsElement);
-  clearPopupForm(popupElementsElement, config);
-}
-
-const closePopupElementsByClickOnOverlay = function (evt) {
-  if (evt.target === evt.currentTarget) {
-    closePopupElements();
-  }
-}
-
-const formElementsSubmitHandler = function (evt) {
-  evt.preventDefault();
-
-  const newCard = createNewCard(popupElementsElementName.value, popupElementsElementLink.value, popupElementsElementName.value, '#elements-template');
-  elementsList.prepend(newCard);
-
-  closePopupElements();
-}
-
-/* popup-profile */
+/* open popup-profile */
 const openPopupProfile = function () {
-  popupProfileElementName.value = profileName.textContent;
-  popupProfileElementActivity.value = profileActivity.textContent;
+  const userdata = profileData.getUserInfo();
+  popupProfileElementName.value = userdata.name;
+  popupProfileElementActivity.value = userdata.about;
+
   popupProfileElementSaveButton.disabled = true;
-
-
   if (popupProfileElementName.value && popupProfileElementActivity.value) {
     popupProfileFormValidator.changeButtonAvalible();
   }
 
-  openPopup(popupProfileElement);
+  popupProfile.open();
 }
-
-const closePopupProfile = function () {
-  closePopup(popupProfileElement);
-  clearPopupForm(popupProfileElement, config);
-}
-
-const closePopupProfileByClickOnOverlay = function (evt) {
-  if (evt.target === evt.currentTarget) {
-    closePopupProfile();
-  }
-}
-
-const formProfileSubmitHandler = function (evt) {
-  evt.preventDefault();
-  profileName.textContent = popupProfileElementName.value;
-  profileActivity.textContent = popupProfileElementActivity.value;
-  closePopupProfile();
-}
-
-/* popup-image */
-const closePopupImage = function () {
-  closePopup(popupImageElement);
-}
-
-const closePopupImageByClickOnOverlay = function (evt) {
-  if (evt.target === evt.currentTarget) {
-    closePopupImage();
-  }
-}
-
 
 /* create new card */
 const createNewCard = function (name, src, alt, templateSelector) {
-  const card = new Card(name, src, alt, templateSelector);
+  const card = new Card({
+    handleCardClick: () => {
+      popupImage.open(name, src, alt);
+    }
+  }
+    , name, src, alt, templateSelector);
+
   const cardElement = card.createCard();
 
   return cardElement;
 }
 
-/* create initial elements */
-initialElements.forEach(function (item) {
-  const newCard = createNewCard(item.name, item.link, item.alt, '#elements-template');
-  elementsList.append(newCard);
-});
+/* render initial elements */
+const renderCard = new Section({
+  data: initialElements,
+  renderer: (item) => {
+    const newCard = createNewCard(item.name, item.link, item.alt, '#elements-template');
+    renderCard.addItem(newCard);
+  }
+},
+  '.elements__list'
+);
 
-/* create formValidator */
-const popupProfileFormValidator = new FormValidator(config, '.popup-profile__form');
-popupProfileFormValidator.enableValidation();
+renderCard.renderItems();
 
-
-const popupElementsFormValidator = new FormValidator(config, '.popup-elements__form');
-popupElementsFormValidator.enableValidation();
 
 
 /********************  event ********************/
 /* popup-profile */
 profileEditButton.addEventListener('click', openPopupProfile);
-popupProfileCloseButton.addEventListener('click', closePopupProfile);
-popupProfileElement.addEventListener('click', closePopupProfileByClickOnOverlay);
-popupProfileFormElement.addEventListener('submit', formProfileSubmitHandler);
-
-/* popup-image */
-popupImageCloseButton.addEventListener('click', closePopupImage);
-popupImageElement.addEventListener('click', closePopupImageByClickOnOverlay);
 
 /* popup-elements */
 profileAddButton.addEventListener('click', openPopupElements);
-popupElementsCloseButton.addEventListener('click', closePopupElements);
-popupElementsElement.addEventListener('click', closePopupElementsByClickOnOverlay);
-popupElementsFormElement.addEventListener('submit', formElementsSubmitHandler);
 
 
 
