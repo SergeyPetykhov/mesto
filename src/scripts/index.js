@@ -7,9 +7,9 @@ import { FormValidator } from './FormValidator.js';
 
 import { config } from './config.js';
 import { initialElements } from './cards.js';
+import './../pages/index.css';
 
 
-console.log(config);
 
 /******************** variable *******************/
 /* profile  */

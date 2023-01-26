@@ -17,5 +17,6 @@
 - HTML5-атрибуты и JS-свойство ValidityState
 - Создание классов
 - Разбивка проекта на модули
+- Сборка проекта с помощью Webpack
 
 Cсылка на сайт: https://sergeypetykhov.github.io/mesto/index.html
