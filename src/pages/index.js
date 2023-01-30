@@ -1,14 +1,13 @@
-import { UserInfo } from './UserInfo.js';
-import { PopupWithImage } from './PopupWithImage.js';
-import { PopupWithForm } from './PopupWithForm.js';
-import { Section } from './Section.js';
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
+import { UserInfo } from './../scripts/UserInfo.js';
+import { PopupWithImage } from './../scripts/PopupWithImage.js';
+import { PopupWithForm } from './../scripts/PopupWithForm.js';
+import { Section } from './../scripts/Section.js';
+import { Card } from './../scripts/Card.js';
+import { FormValidator } from './../scripts/FormValidator.js';
 
-import { config } from './config.js';
-import { initialElements } from './cards.js';
-import './../pages/index.css';
-
+import { config } from './../scripts/config.js';
+import { initialElements } from './../utils/cards.js';
+import './index.css';
 
 
 /******************** variable *******************/
@@ -58,9 +57,8 @@ popupImage.setEventListeners();
 
 /* popupProfile */
 const popupProfile = new PopupWithForm({
-  handleSubmitForm: (evt) => {
-    evt.preventDefault();
-    const newUserData = { newName: popupProfileElementName.value, newAbout: popupProfileElementActivity.value };
+  handleSubmitForm: (inputFormData) => {
+    const newUserData = { newName: inputFormData[0], newAbout: inputFormData[1] };
     profileData.setUserInfo(newUserData);
     popupProfile.close();
   }
@@ -71,16 +69,27 @@ popupProfile.setEventListeners();
 
 /* popupElements */
 const popupElements = new PopupWithForm({
-  handleSubmitForm: (evt) => {
-    evt.preventDefault();
-    const newCard = createNewCard(popupElementsElementName.value, popupElementsElementLink.value, popupElementsElementName.value, '#elements-template');
-    elementsList.prepend(newCard);
+  handleSubmitForm: (inputFormData) => {
+    const newImageData = [{ newImageName: inputFormData[0], newImageLink: inputFormData[1] }];
+
+    const renderNewImageCard = new Section({
+      data: newImageData,
+      renderer: (item) => {
+        const newImageCard = createNewCard(item.newImageName, item.newImageLink, item.newImageName, '#elements-template');
+        renderNewImageCard.addItem(newImageCard);
+      }
+    },
+      '.elements__list'
+    );
+
+    renderNewImageCard.renderItems();
     popupElements.close();
   }
 }
   , '.popup-elements'
 );
 popupElements.setEventListeners();
+
 
 /* formValidator popupProfile */
 const popupProfileFormValidator = new FormValidator(config, '.popup-profile__form');
@@ -105,11 +114,7 @@ const openPopupProfile = function () {
   popupProfileElementName.value = userdata.name;
   popupProfileElementActivity.value = userdata.about;
 
-  popupProfileElementSaveButton.disabled = true;
-  if (popupProfileElementName.value && popupProfileElementActivity.value) {
-    popupProfileFormValidator.changeButtonAvalible();
-  }
-
+  popupProfileFormValidator.changeButtonAvalible();
   popupProfile.open();
 }
 
@@ -131,7 +136,7 @@ const createNewCard = function (name, src, alt, templateSelector) {
 const renderCard = new Section({
   data: initialElements,
   renderer: (item) => {
-    const newCard = createNewCard(item.name, item.link, item.alt, '#elements-template');
+    const newCard = createNewCard(item.name, item.link, item.name, '#elements-template');
     renderCard.addItem(newCard);
   }
 },
