@@ -70,19 +70,10 @@ popupProfile.setEventListeners();
 /* popupElements */
 const popupElements = new PopupWithForm({
   handleSubmitForm: (inputFormData) => {
-    const newImageData = [{ newImageName: inputFormData[0], newImageLink: inputFormData[1] }];
+    const newImageData = { newImageName: inputFormData[0], newImageLink: inputFormData[1] };
+    const newImageCard = createNewCard(newImageData.newImageName, newImageData.newImageLink, newImageData.newImageName, '#elements-template');
+    renderCard.addItem(newImageCard);
 
-    const renderNewImageCard = new Section({
-      data: newImageData,
-      renderer: (item) => {
-        const newImageCard = createNewCard(item.newImageName, item.newImageLink, item.newImageName, '#elements-template');
-        renderNewImageCard.addItem(newImageCard);
-      }
-    },
-      '.elements__list'
-    );
-
-    renderNewImageCard.renderItems();
     popupElements.close();
   }
 }
