@@ -10,6 +10,7 @@
 
 <body class="page">
   <div class="root">
+
     <!-- header -->
     <header class="header root__header">
       <img class="logo" src="<%=require('./images/header_logo.svg')%>" alt="Логотип">
@@ -17,13 +18,15 @@
 
     <!-- main -->
     <main class="content">
-      <!-- profile -->
       <section class="profile root__profile">
-        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+        <div class="profile__avatar-section">
+          <img class="profile__avatar" alt="Аватар">
+          <img class="profile__edit-icon" src="<%=require('./images/avatar_edit.png')%>" alt="Изменить">
+        </div>
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <h1 class="profile__name"></h1>
           <button type="button" class="profile__edit-button" aria-label="Редактировать"></button>
-          <p class="profile__activity">Исследователь океана</p>
+          <p class="profile__activity"></p>
         </div>
         <button type="button" class="profile__add-button" aria-label="Добавить"></button>
       </section>
@@ -51,46 +54,76 @@
       </div>
     </div>
 
-    <!-- popup-profile -->
-    <div class="popup popup-profile">
-      <div class="popup-profile__container">
-        <button type="button" class="popupClose-button popup-profile__close-button"></button>
-        <h2 class="popup-profile__title">Редактировать профиль</h2>
-        <form class="popup__form form-profile popup-profile__form" name="formInputProfileData" novalidate>
-          <fieldset class="form-profile__input-container">
-            <input type="text" class="popup__input form-profile__item form-profile__item_el_name" id="name" name="name"
-              placeholder="Ваше имя" required minlength="2" maxlength="40">
-            <span id="name-error" class="error"></span>
-
-            <input type="text" class="popup__input form-profile__item form-profile__item_el_activity" id="activity"
-              name="activity" placeholder="О себе" required minlength="2" maxlength="200">
-            <span id="activity-error" class="error"></span>
+    <!-- popup-avatar -->
+    <div class="popup popup-avatar">
+      <div class="popup-avatar__container">
+        <button type="button" class="popupClose-button popup-avatar__close-button"></button>
+        <h2 class="popup-avatar__title">Обновить аватар</h2>
+        <form class="popup__form form-avatar popup-avatar__form" name="formInputAvatarData" novalidate>
+          <fieldset class="form-avatar__input-container">
+            <input type="url" class="popup__input form-avatar__item form-avatar__item_el_link" id="linkAvatar"
+              name="linkAvatar" placeholder="Ссылка на аватар" required>
+            <span id="linkAvatar-error" class="error"></span>
           </fieldset>
-          <input type="submit" class="popup__button-save popup__button-save_avalible popup-profile__save-button"
+          <input type="submit" class="popup__button-save popup__button-save_disabled popup-avatar__save-button"
             value="Сохранить">
         </form>
       </div>
     </div>
+  </div>
 
-    <!-- popup-elements -->
-    <div class="popup popup-elements">
-      <div class="popup-elements__container">
-        <button type="button" class="popupClose-button popup-elements__close-button"></button>
-        <h2 class="popup-elements__title">Новое место</h2>
-        <form class="popup__form form-elements popup-elements__form" name="formInputElementsData" novalidate>
-          <fieldset class="form-elements__input-container">
-            <input type="text" class="popup__input form-elements__item form-elements__item_el_name" id="nameElement"
-              name="nameElement" placeholder="Название" required minlength="2" maxlength="30">
-            <span id="nameElement-error" class="error"></span>
-            <input type="url" class="popup__input form-elements__item form-elements__item_el_link" id="linkElement"
-              name="linkElement" placeholder="Ссылка на картинку" required>
-            <span id="linkElement-error" class="error"></span>
-          </fieldset>
-          <input type="submit" class="popup__button-save popup__button-save_disabled popup-elements__save-button"
-            value="Сохранить">
-        </form>
-      </div>
+  <!-- popup-profile -->
+  <div class="popup popup-profile">
+    <div class="popup-profile__container">
+      <button type="button" class="popupClose-button popup-profile__close-button"></button>
+      <h2 class="popup-profile__title">Редактировать профиль</h2>
+      <form class="popup__form form-profile popup-profile__form" name="formInputProfileData" novalidate>
+        <fieldset class="form-profile__input-container">
+          <input type="text" class="popup__input form-profile__item form-profile__item_el_name" id="name" name="name"
+            placeholder="Ваше имя" required minlength="2" maxlength="40">
+          <span id="name-error" class="error"></span>
+          <input type="text" class="popup__input form-profile__item form-profile__item_el_activity" id="activity"
+            name="activity" placeholder="О себе" required minlength="2" maxlength="200">
+          <span id="activity-error" class="error"></span>
+        </fieldset>
+        <input type="submit" class="popup__button-save popup__button-save_avalible popup-profile__save-button"
+          value="Сохранить">
+      </form>
     </div>
+  </div>
+
+  <!-- popup-elements -->
+  <div class="popup popup-elements">
+    <div class="popup-elements__container">
+      <button type="button" class="popupClose-button popup-elements__close-button"></button>
+      <h2 class="popup-elements__title">Новое место</h2>
+      <form class="popup__form form-elements popup-elements__form" name="formInputElementsData" novalidate>
+        <fieldset class="form-elements__input-container">
+          <input type="text" class="popup__input form-elements__item form-elements__item_el_name" id="nameElement"
+            name="nameElement" placeholder="Название" required minlength="2" maxlength="30">
+          <span id="nameElement-error" class="error"></span>
+          <input type="url" class="popup__input form-elements__item form-elements__item_el_link" id="linkElement"
+            name="linkElement" placeholder="Ссылка на картинку" required>
+          <span id="linkElement-error" class="error"></span>
+        </fieldset>
+        <input type="submit" class="popup__button-save popup__button-save_disabled popup-elements__save-button"
+          value="Сохранить">
+      </form>
+    </div>
+  </div>
+  </div>
+
+  <!-- popup-delete-elements -->
+  <div class="popup popup-delete-elements">
+    <div class="popup-delete-elements__container">
+      <button type="button" class="popupClose-button popup-delete-elements__close-button"></button>
+      <h2 class="popup-delete-elements__title">Вы уверены?</h2>
+      <form class="popup__form popup-delete-elements__form" name="formInputDeleteElementsData">
+        <input type="submit" class="popup__button-save popup__button-save_avalible popup-delete-elements__save-button"
+          value="Да">
+      </form>
+    </div>
+  </div>
   </div>
 
   <!-- elements-template -->
@@ -100,7 +133,10 @@
       <img class="elements__image">
       <div class="elements__group">
         <h2 class="elements__name"></h2>
-        <button type="button" class="elements__like-button" aria-label="Лайк"></button>
+        <div>
+          <button type="button" class="elements__like-button" aria-label="Лайк"></button>
+          <p class="elements__like-counter"></p>
+        </div>
       </div>
     </li>
   </template>

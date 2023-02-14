@@ -54,6 +54,7 @@ module.exports = {
       },
     ]
   },
+  devtool: 'eval-source-map',   /* sourse map */
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html'

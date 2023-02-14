@@ -7,7 +7,9 @@ export class PopupWithForm extends Popup {
 
     this._popup = document.querySelector(popupSelector);
     this._popupCloseButton = this._popup.querySelector('.popupClose-button');
+
     this._popupForm = this._popup.querySelector('.popup__form');
+    this._popupSaveButton = this._popup.querySelector('.popup__button-save');
     this._inputs = this._popupForm.querySelectorAll('.popup__input');
     this._errors = this._popupForm.querySelectorAll('.error');
   }
@@ -37,6 +39,9 @@ export class PopupWithForm extends Popup {
     super.close();
   }
 
+  setSaveButtonText (text) {
+   this._popupSaveButton.value = text;
+  }
 
   setEventListeners() {
     super.setEventListeners();
