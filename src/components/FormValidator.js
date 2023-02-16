@@ -2,8 +2,12 @@ export class FormValidator {
   constructor(config, validationElement) {
     this._config = config;
     this._validationElement = validationElement;
-  }
 
+    this._form = document.querySelector(this._validationElement);
+    this._inputs = [...this._form.querySelectorAll(this._config.inputSelector)];
+    this._errors = [...this._form.querySelectorAll(this._config.errorSelector)];
+    this._button = this._form.querySelector(this._config.submitButtonSelector);
+  }
 
   _setEventListeners() {
     this._form.addEventListener('submit', (evt) => {
@@ -20,7 +24,6 @@ export class FormValidator {
     });
   }
 
-
   _checkInputValidity(input) {
     this._error = this._form.querySelector(`#${input.id}-error`);
 
@@ -36,6 +39,16 @@ export class FormValidator {
     }
   }
 
+  removeValidationErrors() {
+    this._form.reset();
+    this._inputs.forEach(function (input) {
+      input.classList.remove('popup__input_type_error');
+    });
+    this._errors.forEach(function (error) {
+      error.textContent = '';
+      error.classList.remove('popup__error_visible');
+    });
+  }
 
   changeButtonAvalible() {
     this._isFormValid = this._inputs.every(function (input) {
@@ -50,13 +63,11 @@ export class FormValidator {
     }
   }
 
-
   _enableSubmitButton() {
     this._button.classList.remove(this._config.inactiveButtonClass);
     this._button.classList.add(this._config.activeButtonClass);
     this._button.disabled = false;
   }
-
 
   _disableSubmitButton() {
     this._button.classList.remove(this._config.activeButtonClass);
@@ -64,12 +75,7 @@ export class FormValidator {
     this._button.disabled = true;
   }
 
-
   enableValidation() {
-    this._form = document.querySelector(this._validationElement);
-    this._inputs = [...this._form.querySelectorAll(this._config.inputSelector)];
-    this._button = this._form.querySelector(this._config.submitButtonSelector);
-
     this._setEventListeners();
   }
 

@@ -10,15 +10,12 @@ export class PopupDeleteConfirm extends Popup {
 
   }
 
-
   getDeleteCard(card) {
     this._deleteCard = card;
   }
 
-
   setEventListeners() {
     super.setEventListeners();
-
     this._popupForm.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._handleSubmitForm(this._deleteCard);
