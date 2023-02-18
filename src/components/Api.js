@@ -24,7 +24,7 @@ export class Api {
   }
 
   updateUserData(newUserData) {
-    fetch(`${this._baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: {
         authorization: this._authorization,
@@ -41,7 +41,7 @@ export class Api {
   }
 
   updateUserAvatar(newUserAvatar) {
-    fetch(`${this._baseUrl}/users/me/avatar`, {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
         authorization: this._authorization,

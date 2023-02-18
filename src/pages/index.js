@@ -52,9 +52,6 @@ const popupsAll = document.querySelectorAll('.popup');
 /* userId */
 let profileId = undefined;
 
-/* initialCards */
-let initialCards = {};
-
 /******************** class *******************/
 /* api */
 const api = new Api({
@@ -71,7 +68,7 @@ const profileData = new UserInfo({ name: '.profile__name', about: '.profile__act
 /* userData & cards*/
 Promise.all([api.getUserData(), api.getInitialCards()])
   .then((res) => {
-    initialCards = { cards: res[1] };
+    const initialCards = { cards: res[1] };
     const userData = { name: res[0].name, about: res[0].about };
     profileData.setUserInfo(userData);
     profileId = res[0]._id;
@@ -90,18 +87,18 @@ popupImage.setEventListeners();
 const popupAvatar = new PopupWithForm({
   handleSubmitForm: (inputFormData) => {
     popupAvatar.setSaveButtonText('Сохранение...');
-    sleep(1000).then(() => {
-      const newAvatarUrl = { avatarUrl: inputFormData[0] };
-      Promise.all([api.updateUserAvatar(newAvatarUrl)])
-        .then(() => {
-          profileAvatar.src = newAvatarUrl.avatarUrl;
-          popupAvatar.close();
-          popupAvatar.setSaveButtonText('Сохранить');
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    });
+    const newAvatarUrl = { avatarUrl: inputFormData[0] };
+    api.updateUserAvatar(newAvatarUrl)
+      .then(() => {
+        profileAvatar.src = newAvatarUrl.avatarUrl;
+        popupAvatar.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupAvatar.setSaveButtonText('Сохранить');
+      });
   }
 }
   , '.popup-avatar'
@@ -112,18 +109,18 @@ popupAvatar.setEventListeners();
 const popupProfile = new PopupWithForm({
   handleSubmitForm: (inputFormData) => {
     popupProfile.setSaveButtonText('Сохранение...');
-    sleep(1000).then(() => {
-      const newUserData = { name: inputFormData[0], about: inputFormData[1] };
-      Promise.all([api.updateUserData(newUserData)])
-        .then(() => {
-          profileData.setUserInfo(newUserData);
-          popupProfile.close();
-          popupProfile.setSaveButtonText('Сохранить');
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    });
+    const newUserData = { name: inputFormData[0], about: inputFormData[1] };
+    api.updateUserData(newUserData)
+      .then(() => {
+        profileData.setUserInfo(newUserData);
+        popupProfile.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupProfile.setSaveButtonText('Сохранить');
+      });
   }
 }
   , '.popup-profile'
@@ -134,19 +131,19 @@ popupProfile.setEventListeners();
 const popupElements = new PopupWithForm({
   handleSubmitForm: (inputFormData) => {
     popupElements.setSaveButtonText('Сохранение...');
-    sleep(1000).then(() => {
-      const newImageData = { newImageName: inputFormData[0], newImageLink: inputFormData[1] };
-      Promise.all([api.postNewCard(newImageData)])
-        .then((result) => {
-          const newImageCard = createNewCard(result[0].name, result[0].link, result[0].name, '#elements-template', result[0]._id, result[0].owner._id, result[0].likes);
-          renderCard.addNewItem(newImageCard);
-          popupElements.close();
-          popupElements.setSaveButtonText('Сохранить');
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    });
+    const newImageData = { newImageName: inputFormData[0], newImageLink: inputFormData[1] };
+    api.postNewCard(newImageData)
+      .then((result) => {
+        const newImageCard = createNewCard(result.name, result.link, result.name, '#elements-template', result._id, result.owner._id, result.likes);
+        renderCard.prependItem(newImageCard);
+        popupElements.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupElements.setSaveButtonText('Сохранить');
+      });
   }
 }
   , '.popup-elements'
@@ -183,11 +180,6 @@ const popupElementsFormValidator = new FormValidator(config, '.popup-elements__f
 popupElementsFormValidator.enableValidation();
 
 /******************** function ***********************/
-/* sleep */
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 /* open popup-avatar */
 const openPopupAvatar = function () {
   popupAvatarFormValidator.removeValidationErrors();
